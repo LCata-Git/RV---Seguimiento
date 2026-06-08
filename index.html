@@ -10,7 +10,6 @@
 :root{--bg:#F5F4F0;--surface:#fff;--border:rgba(0,0,0,.07);--border-s:rgba(0,0,0,.13);--text:#1A1A18;--muted:#6B6B67;--faint:#9E9E99;--accent:#0F6E56;--accent-l:#E1F5EE;--r:12px;--rs:8px}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Figtree',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.5}
-
 header{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:10}
 .logo-dot{width:9px;height:9px;background:var(--accent);border-radius:50%;flex-shrink:0}
 .h-left{display:flex;align-items:center;gap:10px}
@@ -20,41 +19,49 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:1
 .ts{font-family:monospace;font-size:11px;color:var(--faint);background:var(--bg);padding:4px 10px;border-radius:20px}
 .btn{font-size:12px;color:var(--accent);background:var(--accent-l);border:none;padding:6px 14px;border-radius:20px;cursor:pointer;font-family:'Figtree',sans-serif;font-weight:500;transition:opacity .15s}
 .btn:hover{opacity:.7}
-
 main{max-width:1200px;margin:0 auto;padding:20px 16px 60px}
-
-/* KPIs — fila única */
-.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px}
-.kpi{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--rs);padding:14px 16px}
-.kpi-l{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:6px}
-.kpi-v{font-size:22px;font-weight:400;line-height:1;color:var(--text)}
-.kpi-v span{font-size:12px;font-weight:300;color:var(--faint);margin-left:3px}
-.kpi-s{font-size:10px;color:var(--faint);margin-top:4px}
-
-/* Fila de dos columnas */
-.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:16px 18px}
 .sec{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:12px}
 
-/* Requisitos — 4 en fila dentro de la card */
-.req-row-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;height:calc(100% - 24px)}
-.req-item{border-radius:var(--rs);padding:10px 12px;background:var(--bg);display:flex;flex-direction:column;gap:6px}
-.req-name{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
-.req-line{display:flex;align-items:center;gap:5px;font-size:11px}
+/* KPIs — 5 en fila desktop, 1 por fila mobile */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}
+.kpi{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--rs);padding:12px 16px}
+.kpi-l{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:5px}
+.kpi-v{font-size:22px;font-weight:400;line-height:1;color:var(--text)}
+.kpi-v span{font-size:12px;font-weight:300;color:var(--faint);margin-left:3px}
+.kpi-s{font-size:10px;color:var(--faint);margin-top:3px}
+
+/* KPI mobile — horizontal: label izq, número der */
+.kpi-mobile-row{display:none;align-items:center;justify-content:space-between;background:var(--surface);border:0.5px solid var(--border);border-radius:var(--rs);padding:11px 16px}
+.kpi-mobile-row .kpi-l{margin-bottom:0;font-size:11px}
+.kpi-mobile-row .kpi-v{font-size:18px}
+
+/* Requisitos */
+.req-section{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:12px}
+.req-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.req-item{background:var(--bg);border-radius:var(--rs);padding:12px 14px}
+.req-name{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:8px}
+.req-line{display:flex;align-items:center;gap:6px;font-size:11px;margin-bottom:4px}
+.req-line:last-child{margin-bottom:0}
 .rdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.rlabel{flex:1;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rn{font-size:11px;color:var(--faint);font-family:monospace}
+.rlabel{flex:1;color:var(--muted)}
+.rn{font-family:monospace;font-size:11px;color:var(--faint)}
 
-/* Barras dependencia */
-.dep-item{margin-bottom:8px}
-.dep-item:last-child{margin-bottom:0}
+/* Dependencias */
+.dep-section{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:12px}
+.dep-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px 24px}
+.dep-item{}
+.dep-row{display:flex;justify-content:space-between;margin-bottom:3px;font-size:11px}
+.dep-name{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
+.dep-n{font-family:monospace;color:var(--faint);flex-shrink:0;margin-left:8px}
+.dep-track{height:6px;background:rgba(0,0,0,.05);border-radius:3px;overflow:hidden}
+.dep-fill{height:100%;border-radius:3px}
 
-/* Seguimiento por área */
+/* Seguimiento */
 .stages-section{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:12px}
 .stages{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
 .stage{border-radius:var(--rs);padding:10px 6px;text-align:center;background:var(--bg)}
-.stage-ico{font-size:16px;margin-bottom:2px}
-.stage-name{font-size:9px;font-weight:400;color:var(--muted);line-height:1.3;margin-bottom:4px;min-height:24px;display:flex;align-items:center;justify-content:center}
+.stage-ico{font-size:15px;margin-bottom:2px}
+.stage-name{font-size:9px;color:var(--muted);line-height:1.3;margin-bottom:4px;min-height:22px;display:flex;align-items:center;justify-content:center}
 .stage-num{font-size:18px;font-weight:300;line-height:1}
 .stage-bar{height:3px;border-radius:2px;margin-top:4px;background:rgba(0,0,0,.06)}
 .stage-fill{height:100%;border-radius:2px}
@@ -81,24 +88,20 @@ tbody tr:hover td{background:var(--bg)}
 .tfoot{display:flex;justify-content:space-between;padding:8px 12px;border-top:0.5px solid var(--border);background:var(--bg)}
 .rc{font-size:11px;color:var(--faint);font-family:monospace}
 
-/* Estados */
 .loading{display:flex;align-items:center;justify-content:center;padding:80px 24px;flex-direction:column;gap:14px;color:var(--muted);font-size:13px}
 .spinner{width:22px;height:22px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
 .err{background:#FCEBEB;border:0.5px solid rgba(163,45,45,.2);border-radius:var(--r);padding:14px 18px;color:#791F1F;font-size:13px;margin-bottom:16px;line-height:1.7}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* Mobile */
 @media(max-width:700px){
-  .kpis{grid-template-columns:repeat(3,1fr)}
-  .two{grid-template-columns:1fr}
-  .req-row-grid{grid-template-columns:repeat(2,1fr)}
+  .kpis{display:none}
+  .kpi-mobile-row{display:flex}
+  .kpis-mobile{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+  .req-grid{grid-template-columns:repeat(2,1fr)}
+  .dep-grid{grid-template-columns:1fr}
   .stages{grid-template-columns:repeat(4,1fr)}
   .h-sub{display:none}
   header{padding:10px 16px}
-}
-@media(max-width:420px){
-  .kpis{grid-template-columns:repeat(2,1fr)}
-  .req-row-grid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
@@ -123,17 +126,19 @@ tbody tr:hover td{background:var(--bg)}
   <div id="loading" class="loading"><div class="spinner"></div><span>Cargando datos...</span></div>
   <div id="content" style="display:none">
 
+    <!-- Desktop KPIs -->
     <div class="kpis" id="kpis"></div>
+    <!-- Mobile KPIs -->
+    <div class="kpis-mobile" id="kpis-mobile"></div>
 
-    <div class="two">
-      <div class="card" style="display:flex;flex-direction:column">
-        <div class="sec">Requisitos previos</div>
-        <div class="req-row-grid" id="req-grid"></div>
-      </div>
-      <div class="card">
-        <div class="sec">Agentes por dependencia</div>
-        <div id="dep-bars"></div>
-      </div>
+    <div class="req-section">
+      <div class="sec">Requisitos previos</div>
+      <div class="req-grid" id="req-grid"></div>
+    </div>
+
+    <div class="dep-section">
+      <div class="sec">Agentes por dependencia</div>
+      <div class="dep-grid" id="dep-bars"></div>
     </div>
 
     <div class="stages-section">
@@ -177,22 +182,18 @@ tbody tr:hover td{background:var(--bg)}
 
 <script>
 const CSV_URL="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ504KEcYhwB4vvrLMtlCWj3L_Lw3fRW8xeYm6qlFDXvbrxFobEpJc6lClPsfGiGg/pub?gid=1217915708&single=true&output=csv";
-
 const STAGES=[
-  {key:"gef",   label:"Chequeo GEF",   ico:"ti-circle-check", color:"#639922"},
-  {key:"gaj",   label:"Dictamen GAJ",  ico:"ti-gavel",        color:"#378ADD"},
-  {key:"sind",  label:"Sindicatura",   ico:"ti-building-bank",color:"#7F77DD"},
-  {key:"ulyt",  label:"Rev. ULYT",     ico:"ti-eye",          color:"#D4537E"},
-  {key:"firma", label:"Firma DE",      ico:"ti-signature",    color:"#D85A30"},
-  {key:"notif", label:"Notificado",    ico:"ti-bell",         color:"#BA7517"},
-  {key:"seclo", label:"SECLO",         ico:"ti-certificate",  color:"#0F6E56"},
-  {key:"concluido",label:"Concluido",  ico:"ti-flag",         color:"#533AAB"},
+  {key:"gef",label:"Chequeo GEF",ico:"ti-circle-check",color:"#639922"},
+  {key:"gaj",label:"Dictamen GAJ",ico:"ti-gavel",color:"#378ADD"},
+  {key:"sind",label:"Sindicatura",ico:"ti-building-bank",color:"#7F77DD"},
+  {key:"ulyt",label:"Rev. ULYT",ico:"ti-eye",color:"#D4537E"},
+  {key:"firma",label:"Firma DE",ico:"ti-signature",color:"#D85A30"},
+  {key:"notif",label:"Notificado",ico:"ti-bell",color:"#BA7517"},
+  {key:"seclo",label:"SECLO",ico:"ti-certificate",color:"#0F6E56"},
+  {key:"concluido",label:"Concluido",ico:"ti-flag",color:"#533AAB"},
 ];
-
 const IDX={legajo:0,antig:1,gerencia:2,dep:3,gestion:4,penales:5,litigios:6,sumarios:7,gef:8,gaj:9,sind:10,ulyt:11,firma:12,notif:13,seclo:14,concluido:15};
-
 const PALETTE=["#378ADD","#D4537E","#7F77DD","#0F6E56","#D85A30","#BA7517","#639922","#533AAB","#888780","#5DCAA5","#F0997B","#97C459","#EF9F27","#1D9E75"];
-
 let DATA=[];
 
 function splitLine(line){
@@ -233,16 +234,30 @@ function renderKPIs(rows){
   const concl=rows.filter(r=>r.concluido==="1").length;
   const enProc=rows.filter(r=>r.etapa!=="inicio"&&r.etapa!=="concluido").length;
   const sinIni=rows.filter(r=>r.etapa==="inicio").length;
-  g('kpis').innerHTML=`
-    <div class="kpi"><div class="kpi-l">Total agentes</div><div class="kpi-v">${n}</div></div>
-    <div class="kpi"><div class="kpi-l">Concluidos</div><div class="kpi-v" style="color:#0F6E56">${concl}</div><div class="kpi-s">${n?Math.round(concl/n*100):0}% del total</div></div>
-    <div class="kpi"><div class="kpi-l">En proceso</div><div class="kpi-v" style="color:#378ADD">${enProc}</div></div>
-    <div class="kpi"><div class="kpi-l">Sin iniciar</div><div class="kpi-v" style="color:#BA7517">${sinIni}</div></div>
-    <div class="kpi"><div class="kpi-l">Antigüedad prom.</div><div class="kpi-v">${avg}<span>años</span></div></div>`;
+  const items=[
+    {l:"Total agentes",v:n,color:"",sub:""},
+    {l:"Concluidos",v:concl,color:"#0F6E56",sub:`${n?Math.round(concl/n*100):0}% del total`},
+    {l:"En proceso",v:enProc,color:"#378ADD",sub:""},
+    {l:"Sin iniciar",v:sinIni,color:"#BA7517",sub:""},
+    {l:"Antigüedad prom.",v:avg,color:"",sub:"",unit:"años"},
+  ];
+  // Desktop
+  g('kpis').innerHTML=items.map(k=>`
+    <div class="kpi">
+      <div class="kpi-l">${k.l}</div>
+      <div class="kpi-v" ${k.color?`style="color:${k.color}"`:""}>${k.v}${k.unit?`<span>${k.unit}</span>`:""}</div>
+      ${k.sub?`<div class="kpi-s">${k.sub}</div>`:""}
+    </div>`).join('');
+  // Mobile: una por fila, label izq / número der
+  g('kpis-mobile').innerHTML=items.map(k=>`
+    <div class="kpi-mobile-row">
+      <span class="kpi-l">${k.l}</span>
+      <span class="kpi-v" ${k.color?`style="color:${k.color}"`:""}>${k.v}${k.unit?`<span>${k.unit}</span>`:""}</span>
+    </div>`).join('');
 }
 
 function renderReq(){
-  const reqs=[{key:"gestion",label:"Gestión prev."},{key:"penales",label:"Penales"},{key:"litigios",label:"Litigios"},{key:"sumarios",label:"Sumarios"}];
+  const reqs=[{key:"gestion",label:"Gestión previsional"},{key:"penales",label:"Asuntos penales"},{key:"litigios",label:"Litigios laborales"},{key:"sumarios",label:"Sumarios"}];
   const dc={"Cumple":"#3B6D11","No cumple":"#A32D2D","Sin revisión":"#854F0B","Sin datos":"#C0B8A8"};
   g('req-grid').innerHTML=reqs.map(req=>{
     const c={};
@@ -261,13 +276,8 @@ function renderDepBars(){
   const mx=sorted[0]?.[1]||1;
   g('dep-bars').innerHTML=sorted.map(([dep,cnt],i)=>`
     <div class="dep-item">
-      <div style="display:flex;justify-content:space-between;margin-bottom:3px;font-size:11px">
-        <span style="color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px" title="${dep}">${dep}</span>
-        <span style="color:var(--faint);font-family:monospace;flex-shrink:0;margin-left:8px">${cnt}</span>
-      </div>
-      <div style="height:6px;background:rgba(0,0,0,.05);border-radius:3px;overflow:hidden">
-        <div style="height:100%;width:${Math.round(cnt/mx*100)}%;background:${PALETTE[i%PALETTE.length]};border-radius:3px"></div>
-      </div>
+      <div class="dep-row"><span class="dep-name" title="${dep}">${dep}</span><span class="dep-n">${cnt}</span></div>
+      <div class="dep-track"><div class="dep-fill" style="width:${Math.round(cnt/mx*100)}%;background:${PALETTE[i%PALETTE.length]}"></div></div>
     </div>`).join('');
 }
 
@@ -288,15 +298,13 @@ function renderStages(){
 
 function renderTable(rows){
   if(!rows.length){
-    g('tbody').innerHTML='<tr><td colspan="9" style="padding:32px;text-align:center;color:var(--faint)">Sin resultados para los filtros seleccionados</td></tr>';
+    g('tbody').innerHTML='<tr><td colspan="9" style="padding:32px;text-align:center;color:var(--faint)">Sin resultados</td></tr>';
     g('rc').textContent='0 agentes';return;
   }
   const sm={};STAGES.forEach(s=>sm[s.key]=s);
   g('tbody').innerHTML=rows.map(r=>{
     const et=sm[r.etapa];
-    const etBadge=et
-      ?`<span class="badge" style="background:${et.color}20;color:${et.color}">${et.label}</span>`
-      :`<span class="badge b-s">Sin iniciar</span>`;
+    const etBadge=et?`<span class="badge" style="background:${et.color}20;color:${et.color}">${et.label}</span>`:`<span class="badge b-s">Sin iniciar</span>`;
     return`<tr>
       <td><span class="mono">${r.legajo}</span></td>
       <td style="font-family:monospace;color:var(--muted)">${r.antig}a</td>
@@ -316,8 +324,7 @@ function populateDep(){
   const sel=g('fd'),cur=sel.value;
   sel.innerHTML='<option value="">Todas las dependencias</option>';
   [...new Set(DATA.map(r=>r.dep).filter(d=>d&&d!=='—'))].sort().forEach(d=>{
-    const o=document.createElement('option');
-    o.value=d;o.textContent=d;if(d===cur)o.selected=true;sel.appendChild(o);
+    const o=document.createElement('option');o.value=d;o.textContent=d;if(d===cur)o.selected=true;sel.appendChild(o);
   });
 }
 
@@ -333,7 +340,6 @@ async function loadData(){
     const txt=await res.text();
     const raw=parseCSV(txt);
     if(!raw.length)throw new Error('El CSV no tiene filas de datos.');
-
     DATA=raw.map(r=>({
       legajo:r[IDX.legajo]||'—',antig:parseInt(r[IDX.antig])||0,
       gerencia:r[IDX.gerencia]||'—',dep:r[IDX.dep]||'—',
@@ -344,7 +350,6 @@ async function loadData(){
       seclo:r[IDX.seclo]||'',concluido:r[IDX.concluido]||'',
       etapa:currentStage({gef:r[IDX.gef],gaj:r[IDX.gaj],sind:r[IDX.sind],ulyt:r[IDX.ulyt],firma:r[IDX.firma],notif:r[IDX.notif],seclo:r[IDX.seclo],concluido:r[IDX.concluido]})
     })).filter(r=>r.legajo!=='—');
-
     populateDep();renderReq();renderDepBars();renderStages();render();
     g('ts').textContent='Act. '+new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
     g('loading').style.display='none';
@@ -354,7 +359,6 @@ async function loadData(){
     g('err-box').innerHTML=`<div class="err"><strong>Error al cargar datos:</strong> ${e.message}<br><br>Verificá que la hoja esté publicada en Google Sheets como CSV.</div>`;
   }
 }
-
 loadData();
 </script>
 </body>
