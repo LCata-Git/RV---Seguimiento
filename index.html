@@ -10,45 +10,61 @@
 :root{--bg:#F5F4F0;--surface:#fff;--border:rgba(0,0,0,.07);--border-s:rgba(0,0,0,.13);--text:#1A1A18;--muted:#6B6B67;--faint:#9E9E99;--accent:#0F6E56;--accent-l:#E1F5EE;--r:12px;--rs:8px}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Figtree',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.5}
-header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:10}
+
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:10}
 .logo-dot{width:9px;height:9px;background:var(--accent);border-radius:50%;flex-shrink:0}
 .h-left{display:flex;align-items:center;gap:10px}
 .h-title{font-size:15px;font-weight:500}
 .h-sub{font-size:12px;color:var(--muted)}
-.h-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.h-right{display:flex;align-items:center;gap:8px}
 .ts{font-family:monospace;font-size:11px;color:var(--faint);background:var(--bg);padding:4px 10px;border-radius:20px}
 .btn{font-size:12px;color:var(--accent);background:var(--accent-l);border:none;padding:6px 14px;border-radius:20px;cursor:pointer;font-family:'Figtree',sans-serif;font-weight:500;transition:opacity .15s}
 .btn:hover{opacity:.7}
-main{max-width:1200px;margin:0 auto;padding:24px 16px 60px}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:1.5rem}
-.kpi{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--rs);padding:13px 16px}
+
+main{max-width:1200px;margin:0 auto;padding:20px 16px 60px}
+
+/* KPIs — fila única */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px}
+.kpi{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--rs);padding:14px 16px}
 .kpi-l{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:6px}
-.kpi-v{font-size:28px;font-weight:300;line-height:1}
-.kpi-s{font-size:11px;color:var(--faint);margin-top:4px}
-.sec{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:12px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem}
+.kpi-v{font-size:22px;font-weight:400;line-height:1;color:var(--text)}
+.kpi-v span{font-size:12px;font-weight:300;color:var(--faint);margin-left:3px}
+.kpi-s{font-size:10px;color:var(--faint);margin-top:4px}
+
+/* Fila de dos columnas */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 .card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:16px 18px}
-.req-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.req-item{border-radius:var(--rs);padding:10px 12px;background:var(--bg)}
-.req-name{font-size:10px;font-weight:500;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
-.req-row{display:flex;align-items:center;gap:6px;font-size:11px;margin-bottom:4px}
-.req-row:last-child{margin-bottom:0}
+.sec{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:12px}
+
+/* Requisitos — 4 en fila dentro de la card */
+.req-row-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;height:calc(100% - 24px)}
+.req-item{border-radius:var(--rs);padding:10px 12px;background:var(--bg);display:flex;flex-direction:column;gap:6px}
+.req-name{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.req-line{display:flex;align-items:center;gap:5px;font-size:11px}
 .rdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.rlabel{flex:1;color:var(--muted)}
-.rn{font-size:11px;color:var(--faint);min-width:16px;text-align:right}
-.dep-item{margin-bottom:9px}
+.rlabel{flex:1;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rn{font-size:11px;color:var(--faint);font-family:monospace}
+
+/* Barras dependencia */
+.dep-item{margin-bottom:8px}
 .dep-item:last-child{margin-bottom:0}
-.stages-section{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:1.5rem}
+
+/* Seguimiento por área */
+.stages-section{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:12px}
 .stages{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
 .stage{border-radius:var(--rs);padding:10px 6px;text-align:center;background:var(--bg)}
-.stage-ico{font-size:17px;margin-bottom:3px}
-.stage-name{font-size:10px;font-weight:400;color:var(--muted);line-height:1.3;margin-bottom:5px}
-.stage-num{font-size:20px;font-weight:300;line-height:1}
-.stage-bar{height:3px;border-radius:2px;margin-top:5px;background:var(--border)}
+.stage-ico{font-size:16px;margin-bottom:2px}
+.stage-name{font-size:9px;font-weight:400;color:var(--muted);line-height:1.3;margin-bottom:4px;min-height:24px;display:flex;align-items:center;justify-content:center}
+.stage-num{font-size:18px;font-weight:300;line-height:1}
+.stage-bar{height:3px;border-radius:2px;margin-top:4px;background:rgba(0,0,0,.06)}
 .stage-fill{height:100%;border-radius:2px}
-.filters{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
+
+/* Filtros */
+.filters{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;align-items:center}
 .filters label{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);font-weight:500}
 select{font-size:12px;font-family:'Figtree',sans-serif;padding:5px 26px 5px 10px;border-radius:var(--rs);border:0.5px solid var(--border-s);background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%236B6B67' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 8px center;color:var(--text);cursor:pointer;appearance:none;-webkit-appearance:none}
+
+/* Tabla */
 .tw{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);overflow:hidden}
 .tscroll{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:12px}
@@ -64,11 +80,26 @@ tbody tr:hover td{background:var(--bg)}
 .b-s{background:#FAEEDA;color:#633806}
 .tfoot{display:flex;justify-content:space-between;padding:8px 12px;border-top:0.5px solid var(--border);background:var(--bg)}
 .rc{font-size:11px;color:var(--faint);font-family:monospace}
+
+/* Estados */
 .loading{display:flex;align-items:center;justify-content:center;padding:80px 24px;flex-direction:column;gap:14px;color:var(--muted);font-size:13px}
 .spinner{width:22px;height:22px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
 .err{background:#FCEBEB;border:0.5px solid rgba(163,45,45,.2);border-radius:var(--r);padding:14px 18px;color:#791F1F;font-size:13px;margin-bottom:16px;line-height:1.7}
 @keyframes spin{to{transform:rotate(360deg)}}
-@media(max-width:640px){.two{grid-template-columns:1fr}.stages{grid-template-columns:repeat(4,1fr)}.req-grid{grid-template-columns:1fr}header{padding:12px 16px}.h-sub{display:none}}
+
+/* Mobile */
+@media(max-width:700px){
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .two{grid-template-columns:1fr}
+  .req-row-grid{grid-template-columns:repeat(2,1fr)}
+  .stages{grid-template-columns:repeat(4,1fr)}
+  .h-sub{display:none}
+  header{padding:10px 16px}
+}
+@media(max-width:420px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .req-row-grid{grid-template-columns:repeat(2,1fr)}
+}
 </style>
 </head>
 <body>
@@ -91,30 +122,42 @@ tbody tr:hover td{background:var(--bg)}
   <div id="err-box"></div>
   <div id="loading" class="loading"><div class="spinner"></div><span>Cargando datos...</span></div>
   <div id="content" style="display:none">
+
     <div class="kpis" id="kpis"></div>
+
     <div class="two">
-      <div class="card"><div class="sec">Requisitos previos</div><div class="req-grid" id="req-grid"></div></div>
-      <div class="card"><div class="sec">Agentes por dependencia</div><div id="dep-bars"></div></div>
+      <div class="card" style="display:flex;flex-direction:column">
+        <div class="sec">Requisitos previos</div>
+        <div class="req-row-grid" id="req-grid"></div>
+      </div>
+      <div class="card">
+        <div class="sec">Agentes por dependencia</div>
+        <div id="dep-bars"></div>
+      </div>
     </div>
+
     <div class="stages-section">
       <div class="sec">Seguimiento por área</div>
       <div class="stages" id="stages"></div>
     </div>
+
     <div class="filters">
       <label>Filtrar:</label>
       <select id="fd" onchange="render()"><option value="">Todas las dependencias</option></select>
       <select id="fstage" onchange="render()">
         <option value="">Todas las etapas</option>
-        <option value="gef">En Chequeo GEF</option>
-        <option value="gaj">En Dictamen GAJ</option>
-        <option value="sind">En Dictamen Sindicatura</option>
-        <option value="ulyt">En Revisión ULYT</option>
-        <option value="firma">Con Firma DE</option>
+        <option value="gef">Chequeo GEF</option>
+        <option value="gaj">Dictamen GAJ</option>
+        <option value="sind">Sindicatura</option>
+        <option value="ulyt">Revisión ULYT</option>
+        <option value="firma">Firma DE</option>
         <option value="notif">Notificado</option>
-        <option value="seclo">Homologación SECLO</option>
+        <option value="seclo">SECLO</option>
         <option value="concluido">Concluido</option>
+        <option value="inicio">Sin iniciar</option>
       </select>
     </div>
+
     <div class="tw">
       <div class="tscroll">
         <table>
@@ -128,82 +171,65 @@ tbody tr:hover td{background:var(--bg)}
       </div>
       <div class="tfoot"><span class="rc" id="rc"></span></div>
     </div>
+
   </div>
 </main>
 
 <script>
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ504KEcYhwB4vvrLMtlCWj3L_Lw3fRW8xeYm6qlFDXvbrxFobEpJc6lClPsfGiGg/pub?gid=1217915708&single=true&output=csv";
+const CSV_URL="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ504KEcYhwB4vvrLMtlCWj3L_Lw3fRW8xeYm6qlFDXvbrxFobEpJc6lClPsfGiGg/pub?gid=1217915708&single=true&output=csv";
 
-const STAGES = [
-  {key:"gef",   label:"Chequeo GEF",    ico:"ti-circle-check", color:"#639922"},
-  {key:"gaj",   label:"Dictamen GAJ",   ico:"ti-gavel",        color:"#378ADD"},
-  {key:"sind",  label:"Sindicatura",    ico:"ti-building-bank",color:"#7F77DD"},
-  {key:"ulyt",  label:"Revisión ULYT",  ico:"ti-eye",          color:"#D4537E"},
-  {key:"firma", label:"Firma DE",       ico:"ti-signature",    color:"#D85A30"},
-  {key:"notif", label:"Notificado",     ico:"ti-bell",         color:"#BA7517"},
-  {key:"seclo", label:"SECLO",          ico:"ti-certificate",  color:"#0F6E56"},
-  {key:"concluido",label:"Concluido",   ico:"ti-flag",         color:"#533AAB"},
+const STAGES=[
+  {key:"gef",   label:"Chequeo GEF",   ico:"ti-circle-check", color:"#639922"},
+  {key:"gaj",   label:"Dictamen GAJ",  ico:"ti-gavel",        color:"#378ADD"},
+  {key:"sind",  label:"Sindicatura",   ico:"ti-building-bank",color:"#7F77DD"},
+  {key:"ulyt",  label:"Rev. ULYT",     ico:"ti-eye",          color:"#D4537E"},
+  {key:"firma", label:"Firma DE",      ico:"ti-signature",    color:"#D85A30"},
+  {key:"notif", label:"Notificado",    ico:"ti-bell",         color:"#BA7517"},
+  {key:"seclo", label:"SECLO",         ico:"ti-certificate",  color:"#0F6E56"},
+  {key:"concluido",label:"Concluido",  ico:"ti-flag",         color:"#533AAB"},
 ];
 
-// Índices de columna (base 0) en la fila de headers real (fila 2 del CSV)
-const IDX = {
-  legajo:0, antig:1, gerencia:2, dep:3,
-  gestion:4, penales:5, litigios:6, sumarios:7,
-  gef:8, gaj:9, sind:10, ulyt:11, firma:12, notif:13, seclo:14, concluido:15
-};
+const IDX={legajo:0,antig:1,gerencia:2,dep:3,gestion:4,penales:5,litigios:6,sumarios:7,gef:8,gaj:9,sind:10,ulyt:11,firma:12,notif:13,seclo:14,concluido:15};
 
-let DATA = [];
+const PALETTE=["#378ADD","#D4537E","#7F77DD","#0F6E56","#D85A30","#BA7517","#639922","#533AAB","#888780","#5DCAA5","#F0997B","#97C459","#EF9F27","#1D9E75"];
 
-function splitCSVLine(line) {
-  const result = [];
-  let cur = '', inQ = false;
-  for (let i = 0; i < line.length; i++) {
-    const c = line[i];
-    if (c === '"') {
-      if (inQ && line[i+1] === '"') { cur += '"'; i++; }
-      else inQ = !inQ;
-    } else if (c === ',' && !inQ) {
-      result.push(cur.trim()); cur = '';
-    } else cur += c;
+let DATA=[];
+
+function splitLine(line){
+  const res=[];let cur='',inQ=false;
+  for(let i=0;i<line.length;i++){
+    const c=line[i];
+    if(c==='"'){if(inQ&&line[i+1]==='"'){cur+='"';i++;}else inQ=!inQ;}
+    else if(c===','&&!inQ){res.push(cur.trim());cur='';}
+    else cur+=c;
   }
-  result.push(cur.trim());
-  return result;
+  res.push(cur.trim());return res;
 }
 
-function parseCSV(txt) {
-  const lines = txt.replace(/\r\n/g,"\n").replace(/\r/g,"\n").trim().split("\n");
-  // Fila 0: grupos (Gestión Previsional, Asuntos Penales...) — se saltea
-  // Fila 1: headers reales
-  // Fila 2+: datos
-  if (lines.length < 3) return [];
-  return lines.slice(2).map(line => splitCSVLine(line)).filter(r => r[IDX.legajo]);
+function parseCSV(txt){
+  const lines=txt.replace(/\r\n/g,"\n").replace(/\r/g,"\n").trim().split("\n");
+  if(lines.length<3)return[];
+  return lines.slice(2).map(l=>splitLine(l)).filter(r=>r[IDX.legajo]&&r[IDX.legajo].trim());
 }
 
-function currentStage(r) {
-  for (let i = STAGES.length-1; i >= 0; i--) {
-    if (r[STAGES[i].key] === "1") return STAGES[i].key;
-  }
-  return "inicio";
+function currentStage(r){
+  for(let i=STAGES.length-1;i>=0;i--){if(r[STAGES[i].key]==="1")return STAGES[i].key;}
+  return"inicio";
 }
 
-function g(id) { return document.getElementById(id); }
+function g(id){return document.getElementById(id);}
+function filtered(){const fd=g('fd').value,fs=g('fstage').value;return DATA.filter(r=>(!fd||r.dep===fd)&&(!fs||r.etapa===fs));}
 
-function filtered() {
-  const fd=g('fd').value, fs=g('fstage').value;
-  return DATA.filter(r=>(!fd||r.dep===fd)&&(!fs||r.etapa===fs));
+function badgeReq(v){
+  if(!v||v==="")return`<span class="badge b-s">Sin datos</span>`;
+  const lo=v.toLowerCase();
+  if(lo==="si"||lo==="sí"||lo==="cumple")return`<span class="badge b-c">Cumple</span>`;
+  if(lo.includes("no"))return`<span class="badge b-n">No cumple</span>`;
+  return`<span class="badge b-s">${v}</span>`;
 }
 
-function badgeReq(v) {
-  if (!v || v==="") return `<span class="badge b-s">Sin datos</span>`;
-  const lo = v.toLowerCase();
-  if (lo==="si"||lo==="sí"||lo==="cumple") return `<span class="badge b-c">Cumple</span>`;
-  if (lo==="no"||lo==="no cumple") return `<span class="badge b-n">No cumple</span>`;
-  return `<span class="badge b-s">${v}</span>`;
-}
-
-function renderKPIs(rows) {
-  const n=rows.length;
-  const avg=n?Math.round(rows.reduce((a,r)=>a+r.antig,0)/n):0;
+function renderKPIs(rows){
+  const n=rows.length,avg=n?Math.round(rows.reduce((a,r)=>a+r.antig,0)/n):0;
   const concl=rows.filter(r=>r.concluido==="1").length;
   const enProc=rows.filter(r=>r.etapa!=="inicio"&&r.etapa!=="concluido").length;
   const sinIni=rows.filter(r=>r.etapa==="inicio").length;
@@ -212,56 +238,47 @@ function renderKPIs(rows) {
     <div class="kpi"><div class="kpi-l">Concluidos</div><div class="kpi-v" style="color:#0F6E56">${concl}</div><div class="kpi-s">${n?Math.round(concl/n*100):0}% del total</div></div>
     <div class="kpi"><div class="kpi-l">En proceso</div><div class="kpi-v" style="color:#378ADD">${enProc}</div></div>
     <div class="kpi"><div class="kpi-l">Sin iniciar</div><div class="kpi-v" style="color:#BA7517">${sinIni}</div></div>
-    <div class="kpi"><div class="kpi-l">Antigüedad prom.</div><div class="kpi-v">${avg}<span style="font-size:13px;font-weight:300;color:#9E9E99"> años</span></div></div>`;
+    <div class="kpi"><div class="kpi-l">Antigüedad prom.</div><div class="kpi-v">${avg}<span>años</span></div></div>`;
 }
 
-function renderReq() {
-  const reqs=[
-    {key:"gestion",label:"Gestión previsional"},
-    {key:"penales",label:"Asuntos penales"},
-    {key:"litigios",label:"Litigios laborales"},
-    {key:"sumarios",label:"Sumarios"}
-  ];
-  const dotColor={"Cumple":"#3B6D11","No cumple":"#A32D2D","Sin revisión":"#854F0B","Sin datos":"#854F0B"};
+function renderReq(){
+  const reqs=[{key:"gestion",label:"Gestión prev."},{key:"penales",label:"Penales"},{key:"litigios",label:"Litigios"},{key:"sumarios",label:"Sumarios"}];
+  const dc={"Cumple":"#3B6D11","No cumple":"#A32D2D","Sin revisión":"#854F0B","Sin datos":"#C0B8A8"};
   g('req-grid').innerHTML=reqs.map(req=>{
     const c={};
-    DATA.forEach(r=>{
-      const v=r[req.key]||"Sin datos";
-      c[v]=(c[v]||0)+1;
-    });
-    const bars=Object.entries(c).sort((a,b)=>b[1]-a[1]).map(([v,cnt])=>
-      `<div class="req-row"><div class="rdot" style="background:${dotColor[v]||'#888'}"></div><span class="rlabel">${v}</span><span class="rn">${cnt}</span></div>`
+    DATA.forEach(r=>{const v=r[req.key]||"Sin datos";c[v]=(c[v]||0)+1;});
+    const lines=Object.entries(c).sort((a,b)=>b[1]-a[1]).map(([v,cnt])=>
+      `<div class="req-line"><div class="rdot" style="background:${dc[v]||'#888'}"></div><span class="rlabel">${v}</span><span class="rn">${cnt}</span></div>`
     ).join('');
-    return `<div class="req-item"><div class="req-name">${req.label}</div>${bars}</div>`;
+    return`<div class="req-item"><div class="req-name">${req.label}</div>${lines}</div>`;
   }).join('');
 }
 
-function renderDepBars() {
+function renderDepBars(){
   const c={};
-  DATA.forEach(r=>{ if(r.dep) c[r.dep]=(c[r.dep]||0)+1; });
-  const sorted=Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,12);
+  DATA.forEach(r=>{if(r.dep&&r.dep!=='—')c[r.dep]=(c[r.dep]||0)+1;});
+  const sorted=Object.entries(c).sort((a,b)=>b[1]-a[1]);
   const mx=sorted[0]?.[1]||1;
-  const palette=["#378ADD","#D4537E","#7F77DD","#0F6E56","#D85A30","#BA7517","#639922","#533AAB","#888780","#5DCAA5","#F0997B","#97C459"];
   g('dep-bars').innerHTML=sorted.map(([dep,cnt],i)=>`
     <div class="dep-item">
-      <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:12px">
-        <span style="color:#6B6B67;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px" title="${dep}">${dep}</span>
-        <span style="color:#9E9E99;font-family:monospace;flex-shrink:0;margin-left:8px">${cnt}</span>
+      <div style="display:flex;justify-content:space-between;margin-bottom:3px;font-size:11px">
+        <span style="color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px" title="${dep}">${dep}</span>
+        <span style="color:var(--faint);font-family:monospace;flex-shrink:0;margin-left:8px">${cnt}</span>
       </div>
-      <div style="height:7px;background:#F1EFE8;border-radius:4px;overflow:hidden">
-        <div style="height:100%;width:${Math.round(cnt/mx*100)}%;background:${palette[i%palette.length]};border-radius:4px"></div>
+      <div style="height:6px;background:rgba(0,0,0,.05);border-radius:3px;overflow:hidden">
+        <div style="height:100%;width:${Math.round(cnt/mx*100)}%;background:${PALETTE[i%PALETTE.length]};border-radius:3px"></div>
       </div>
     </div>`).join('');
 }
 
-function renderStages() {
+function renderStages(){
   const sc={};
   STAGES.forEach(s=>{sc[s.key]=DATA.filter(r=>r[s.key]==="1").length;});
   const mx=Math.max(...Object.values(sc),1);
   g('stages').innerHTML=STAGES.map(s=>{
     const n=sc[s.key];
-    return `<div class="stage">
-      <div class="stage-ico"><i class="ti ${s.ico}" style="font-size:16px;color:${s.color}" aria-hidden="true"></i></div>
+    return`<div class="stage">
+      <div class="stage-ico"><i class="ti ${s.ico}" style="font-size:15px;color:${s.color}" aria-hidden="true"></i></div>
       <div class="stage-name">${s.label}</div>
       <div class="stage-num">${n}</div>
       <div class="stage-bar"><div class="stage-fill" style="width:${Math.round(n/mx*100)}%;background:${s.color}"></div></div>
@@ -269,22 +286,20 @@ function renderStages() {
   }).join('');
 }
 
-function renderTable(rows) {
-  if (!rows.length) {
-    g('tbody').innerHTML='<tr><td colspan="9" style="padding:32px;text-align:center;color:#9E9E99">Sin resultados</td></tr>';
-    g('rc').textContent='0 agentes';
-    return;
+function renderTable(rows){
+  if(!rows.length){
+    g('tbody').innerHTML='<tr><td colspan="9" style="padding:32px;text-align:center;color:var(--faint)">Sin resultados para los filtros seleccionados</td></tr>';
+    g('rc').textContent='0 agentes';return;
   }
-  const sm={};
-  STAGES.forEach(s=>sm[s.key]=s);
+  const sm={};STAGES.forEach(s=>sm[s.key]=s);
   g('tbody').innerHTML=rows.map(r=>{
     const et=sm[r.etapa];
     const etBadge=et
-      ?`<span class="badge" style="background:${et.color}22;color:${et.color}">${et.label}</span>`
+      ?`<span class="badge" style="background:${et.color}20;color:${et.color}">${et.label}</span>`
       :`<span class="badge b-s">Sin iniciar</span>`;
-    return `<tr>
+    return`<tr>
       <td><span class="mono">${r.legajo}</span></td>
-      <td style="font-family:monospace;color:#6B6B67">${r.antig}a</td>
+      <td style="font-family:monospace;color:var(--muted)">${r.antig}a</td>
       <td><div class="celld" title="${r.gerencia}">${r.gerencia}</div></td>
       <td><div class="celld" title="${r.dep}">${r.dep}</div></td>
       <td>${badgeReq(r.gestion)}</td>
@@ -297,70 +312,46 @@ function renderTable(rows) {
   g('rc').textContent=`${rows.length} de ${DATA.length} agente${DATA.length!==1?'s':''}`;
 }
 
-function populateDep() {
-  const sel=g('fd'), cur=sel.value;
+function populateDep(){
+  const sel=g('fd'),cur=sel.value;
   sel.innerHTML='<option value="">Todas las dependencias</option>';
-  [...new Set(DATA.map(r=>r.dep).filter(Boolean))].sort().forEach(d=>{
+  [...new Set(DATA.map(r=>r.dep).filter(d=>d&&d!=='—'))].sort().forEach(d=>{
     const o=document.createElement('option');
-    o.value=d; o.textContent=d;
-    if(d===cur)o.selected=true;
-    sel.appendChild(o);
+    o.value=d;o.textContent=d;if(d===cur)o.selected=true;sel.appendChild(o);
   });
 }
 
-function render() {
-  renderKPIs(filtered());
-  renderTable(filtered());
-}
+function render(){const rows=filtered();renderKPIs(rows);renderTable(rows);}
 
-async function loadData() {
+async function loadData(){
   g('loading').style.display='flex';
   g('content').style.display='none';
   g('err-box').innerHTML='';
-  try {
-    const res = await fetch(CSV_URL+'&t='+Date.now());
-    if (!res.ok) throw new Error('HTTP '+res.status);
-    const txt = await res.text();
-    const raw = parseCSV(txt);
-    if (!raw.length) throw new Error('El CSV no tiene filas de datos. Verificá que la hoja esté publicada y tenga datos desde la fila 3.');
+  try{
+    const res=await fetch(CSV_URL+'&t='+Date.now());
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const txt=await res.text();
+    const raw=parseCSV(txt);
+    if(!raw.length)throw new Error('El CSV no tiene filas de datos.');
 
-    DATA = raw.map(r=>({
-      legajo:   r[IDX.legajo]   || '—',
-      antig:    parseInt(r[IDX.antig]) || 0,
-      gerencia: r[IDX.gerencia] || '—',
-      dep:      r[IDX.dep]      || '—',
-      gestion:  r[IDX.gestion]  || '',
-      penales:  r[IDX.penales]  || '',
-      litigios: r[IDX.litigios] || '',
-      sumarios: r[IDX.sumarios] || '',
-      gef:      r[IDX.gef]      || '',
-      gaj:      r[IDX.gaj]      || '',
-      sind:     r[IDX.sind]     || '',
-      ulyt:     r[IDX.ulyt]     || '',
-      firma:    r[IDX.firma]    || '',
-      notif:    r[IDX.notif]    || '',
-      seclo:    r[IDX.seclo]    || '',
-      concluido:r[IDX.concluido]|| '',
-      etapa: currentStage({
-        gef:r[IDX.gef],gaj:r[IDX.gaj],sind:r[IDX.sind],ulyt:r[IDX.ulyt],
-        firma:r[IDX.firma],notif:r[IDX.notif],seclo:r[IDX.seclo],concluido:r[IDX.concluido]
-      })
-    })).filter(r => r.legajo !== '—');
+    DATA=raw.map(r=>({
+      legajo:r[IDX.legajo]||'—',antig:parseInt(r[IDX.antig])||0,
+      gerencia:r[IDX.gerencia]||'—',dep:r[IDX.dep]||'—',
+      gestion:r[IDX.gestion]||'',penales:r[IDX.penales]||'',
+      litigios:r[IDX.litigios]||'',sumarios:r[IDX.sumarios]||'',
+      gef:r[IDX.gef]||'',gaj:r[IDX.gaj]||'',sind:r[IDX.sind]||'',
+      ulyt:r[IDX.ulyt]||'',firma:r[IDX.firma]||'',notif:r[IDX.notif]||'',
+      seclo:r[IDX.seclo]||'',concluido:r[IDX.concluido]||'',
+      etapa:currentStage({gef:r[IDX.gef],gaj:r[IDX.gaj],sind:r[IDX.sind],ulyt:r[IDX.ulyt],firma:r[IDX.firma],notif:r[IDX.notif],seclo:r[IDX.seclo],concluido:r[IDX.concluido]})
+    })).filter(r=>r.legajo!=='—');
 
-    populateDep();
-    renderReq();
-    renderDepBars();
-    renderStages();
-    render();
-
+    populateDep();renderReq();renderDepBars();renderStages();render();
     g('ts').textContent='Act. '+new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
     g('loading').style.display='none';
     g('content').style.display='block';
-
-  } catch(e) {
+  }catch(e){
     g('loading').style.display='none';
-    g('err-box').innerHTML=`<div class="err"><strong>Error al cargar datos:</strong> ${e.message}<br><br>
-      Verificá que la hoja esté publicada en Google Sheets como CSV y que la URL sea correcta.</div>`;
+    g('err-box').innerHTML=`<div class="err"><strong>Error al cargar datos:</strong> ${e.message}<br><br>Verificá que la hoja esté publicada en Google Sheets como CSV.</div>`;
   }
 }
 
