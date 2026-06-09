@@ -37,7 +37,7 @@ main{max-width:1200px;margin:0 auto;padding:20px 16px 60px}
 
 /* Requisitos */
 .req-section{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:12px}
-.req-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.req-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
 .req-item{background:var(--bg);border-radius:var(--rs);padding:12px 14px}
 .req-name{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:8px}
 .req-line{display:flex;align-items:center;gap:6px;font-size:11px;margin-bottom:4px}
@@ -97,7 +97,7 @@ tbody tr:hover td{background:var(--bg)}
   .kpis{display:none}
   .kpi-mobile-row{display:flex}
   .kpis-mobile{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
-  .req-grid{grid-template-columns:repeat(2,1fr)}
+  .req-grid{grid-template-columns:repeat(3,1fr)}
   .dep-grid{grid-template-columns:1fr}
   .stages{grid-template-columns:repeat(4,1fr)}
   .h-sub{display:none}
@@ -175,7 +175,7 @@ tbody tr:hover td{background:var(--bg)}
         <table>
           <thead><tr>
             <th>Legajo</th><th>Ant.</th><th>Gerencia</th><th>Dependencia</th>
-            <th>Gestión prev.</th><th>Penales</th><th>Litigios</th><th>Sumarios</th>
+            <th>Gestión prev.</th><th>Penales</th><th>Litigios</th><th>Sumarios</th><th>Tutela</th>
             <th>Etapa actual</th>
           </tr></thead>
           <tbody id="tbody"></tbody>
@@ -199,7 +199,7 @@ const STAGES=[
   {key:"seclo",label:"SECLO",ico:"ti-certificate",color:"#0F6E56"},
   {key:"concluido",label:"Concluido",ico:"ti-flag",color:"#533AAB"},
 ];
-const IDX={legajo:0,antig:1,gerencia:2,dep:3,gestion:4,penales:5,litigios:6,sumarios:7,gef:8,gaj:9,sind:10,ulyt:11,firma:12,notif:13,seclo:14,concluido:15};
+const IDX={legajo:0,antig:1,gerencia:2,dep:3,gestion:4,penales:5,litigios:6,sumarios:7,gef:8,gaj:9,sind:10,ulyt:11,firma:12,notif:13,seclo:14,concluido:15,tutela:16};
 const PALETTE=["#378ADD","#D4537E","#7F77DD","#0F6E56","#D85A30","#BA7517","#639922","#533AAB","#888780","#5DCAA5","#F0997B","#97C459","#EF9F27","#1D9E75"];
 let DATA=[];
 
@@ -227,6 +227,14 @@ function currentStage(r){
 
 function g(id){return document.getElementById(id);}
 function filtered(){const fd=g('fd').value,fs=g('fstage').value;return DATA.filter(r=>(!fd||r.dep===fd)&&(!fs||r.etapa===fs));}
+
+function badgeTutela(v){
+  if(!v||v==="")return`<span class="badge b-s">Sin datos</span>`;
+  const lo=v.toLowerCase();
+  if(lo==="si"||lo==="sí")return`<span class="badge b-n">Con tutela</span>`;
+  if(lo==="no")return`<span class="badge b-c">Sin tutela</span>`;
+  return`<span class="badge b-s">${v}</span>`;
+}
 
 function badgeReq(v){
   if(!v||v==="")return`<span class="badge b-s">Sin datos</span>`;
@@ -264,8 +272,8 @@ function renderKPIs(rows){
 }
 
 function renderReq(){
-  const reqs=[{key:"gestion",label:"Gestión previsional"},{key:"penales",label:"Asuntos penales"},{key:"litigios",label:"Litigios laborales"},{key:"sumarios",label:"Sumarios"}];
-  const dc={"Cumple":"#3B6D11","No cumple":"#A32D2D","Sin revisión":"#854F0B","Sin datos":"#C0B8A8"};
+  const reqs=[{key:"gestion",label:"Gestión previsional"},{key:"penales",label:"Asuntos penales"},{key:"litigios",label:"Litigios laborales"},{key:"sumarios",label:"Sumarios"},{key:"tutela",label:"Tutela"}];
+  const dc={"Cumple":"#3B6D11","No cumple":"#A32D2D","Sin revisión":"#854F0B","Sin datos":"#C0B8A8","Si":"#A32D2D","No":"#3B6D11"};
   g('req-grid').innerHTML=reqs.map(req=>{
     const c={};
     DATA.forEach(r=>{const v=r[req.key]||"Sin datos";c[v]=(c[v]||0)+1;});
@@ -305,7 +313,7 @@ function renderStages(){
 
 function renderTable(rows){
   if(!rows.length){
-    g('tbody').innerHTML='<tr><td colspan="9" style="padding:32px;text-align:center;color:var(--faint)">Sin resultados</td></tr>';
+    g('tbody').innerHTML='<tr><td colspan="10" style="padding:32px;text-align:center;color:var(--faint)">Sin resultados</td></tr>';
     g('rc').textContent='0 agentes';return;
   }
   const sm={};STAGES.forEach(s=>sm[s.key]=s);
@@ -321,6 +329,7 @@ function renderTable(rows){
       <td>${badgeReq(r.penales)}</td>
       <td>${badgeReq(r.litigios)}</td>
       <td>${badgeReq(r.sumarios)}</td>
+      <td>${badgeTutela(r.tutela)}</td>
       <td>${etBadge}</td>
     </tr>`;
   }).join('');
@@ -381,7 +390,7 @@ async function loadData(){
       litigios:r[IDX.litigios]||'',sumarios:r[IDX.sumarios]||'',
       gef:r[IDX.gef]||'',gaj:r[IDX.gaj]||'',sind:r[IDX.sind]||'',
       ulyt:r[IDX.ulyt]||'',firma:r[IDX.firma]||'',notif:r[IDX.notif]||'',
-      seclo:r[IDX.seclo]||'',concluido:r[IDX.concluido]||'',
+      seclo:r[IDX.seclo]||'',concluido:r[IDX.concluido]||'',tutela:r[IDX.tutela]||'',
       etapa:currentStage({gef:r[IDX.gef],gaj:r[IDX.gaj],sind:r[IDX.sind],ulyt:r[IDX.ulyt],firma:r[IDX.firma],notif:r[IDX.notif],seclo:r[IDX.seclo],concluido:r[IDX.concluido]})
     })).filter(r=>r.legajo!=='—');
     populateDep();renderReq();renderDepBars();renderStages();render();
