@@ -131,6 +131,8 @@ tbody tr:hover td{background:var(--bg)}
     <!-- Mobile KPIs -->
     <div class="kpis-mobile" id="kpis-mobile"></div>
 
+    <div class="kpis" id="monto-cards" style="grid-template-columns:repeat(2,1fr);margin-bottom:12px"></div>
+
     <div class="req-section">
       <div class="sec">Requisitos previos</div>
       <div class="req-grid" id="req-grid"></div>
@@ -188,7 +190,7 @@ tbody tr:hover td{background:var(--bg)}
 </main>
 
 <script>
-const CSV_URL="https://docs.google.com/spreadsheets/d/e/2PACX-1vSSAMwqP_D0pqZGbO5fQXb3sfVj-MZ5Ixbki_AhlF7oK7EoOG-8nIk2QpHNy4zNa_7spwfhKYl8M-Kb/pub?gid=1217915708&single=true&output=csv";
+const CSV_URL="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ504KEcYhwB4vvrLMtlCWj3L_Lw3fRW8xeYm6qlFDXvbrxFobEpJc6lClPsfGiGg/pub?gid=1217915708&single=true&output=csv";
 const STAGES=[
   {key:"gef",label:"Chequeo GEF",ico:"ti-circle-check",color:"#639922"},
   {key:"gaj",label:"Dictamen GAJ",ico:"ti-gavel",color:"#378ADD"},
@@ -199,7 +201,7 @@ const STAGES=[
   {key:"seclo",label:"SECLO",ico:"ti-certificate",color:"#0F6E56"},
   {key:"concluido",label:"Concluido",ico:"ti-flag",color:"#533AAB"},
 ];
-const IDX={legajo:0,antig:1,gerencia:2,dep:3,gestion:4,penales:5,litigios:6,sumarios:7,gef:8,gaj:9,sind:10,ulyt:11,firma:12,notif:13,seclo:14,concluido:15,tutela:16};
+const IDX={legajo:0,antig:1,gerencia:2,dep:3,gestion:4,penales:5,litigios:6,sumarios:7,gef:8,gaj:9,sind:10,ulyt:11,firma:12,notif:13,seclo:14,concluido:15,tutela:16,monto:17};
 const PALETTE=["#378ADD","#D4537E","#7F77DD","#0F6E56","#D85A30","#BA7517","#639922","#533AAB","#888780","#5DCAA5","#F0997B","#97C459","#EF9F27","#1D9E75"];
 let DATA=[];
 
@@ -242,6 +244,58 @@ function badgeReq(v){
   if(lo==="si"||lo==="sí"||lo==="cumple")return`<span class="badge b-c">Cumple</span>`;
   if(lo.includes("no"))return`<span class="badge b-n">No cumple</span>`;
   return`<span class="badge b-s">${v}</span>`;
+}
+
+
+function parseMonto(v){
+  if(!v||v.trim()==="")return null;
+  // Remove $, spaces, dots (thousands), replace comma with dot for decimal
+  const clean=v.replace(/[$\s]/g,"").replace(/\./g,"").replace(",",".");
+  const n=parseFloat(clean);
+  return isNaN(n)?null:n;
+}
+
+function formatPesos(n){
+  if(n===null||n===undefined)return"—";
+  return"$ "+Math.round(n).toLocaleString("es-AR");
+}
+
+function renderMontoCards(rows){
+  const montos=rows.map(r=>parseMonto(r.monto)).filter(v=>v!==null);
+  const total=rows.length;
+  if(!montos.length){
+    g("monto-cards").innerHTML=`
+      <div class="kpi" style="grid-column:span 2">
+        <div class="kpi-l">Monto</div>
+        <div class="kpi-v" style="font-size:14px;color:var(--faint)">Sin datos de monto</div>
+      </div>`;
+    return;
+  }
+  const avg=montos.reduce((a,b)=>a+b,0)/montos.length;
+  const min=Math.min(...montos);
+  const max=Math.max(...montos);
+  const proyectado=avg*total;
+  g("monto-cards").innerHTML=`
+    <div class="kpi">
+      <div class="kpi-l">Monto promedio</div>
+      <div class="kpi-v" style="font-size:15px;font-weight:400">${formatPesos(avg)}</div>
+      <div class="kpi-s">Sobre ${montos.length} de ${total} agentes</div>
+      <div style="display:flex;gap:12px;margin-top:8px">
+        <div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:2px">Mínimo</div>
+          <div style="font-size:12px;color:var(--muted)">${formatPesos(min)}</div>
+        </div>
+        <div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin-bottom:2px">Máximo</div>
+          <div style="font-size:12px;color:var(--muted)">${formatPesos(max)}</div>
+        </div>
+      </div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-l">Monto proyectado</div>
+      <div class="kpi-v" style="font-size:15px;font-weight:400;color:#0F6E56">${formatPesos(proyectado)}</div>
+      <div class="kpi-s">Promedio × ${total} agentes</div>
+    </div>`;
 }
 
 function renderKPIs(rows){
@@ -352,7 +406,7 @@ function setDepFilter(dep){
   renderDepBars();
 }
 
-function render(){const rows=filtered();renderKPIs(rows);renderTable(rows);renderNivelCentral(rows);renderDepBars();}
+function render(){const rows=filtered();renderKPIs(rows);renderMontoCards(rows);renderTable(rows);renderNivelCentral(rows);renderDepBars();}
 
 
 function renderNivelCentral(rows){
@@ -390,7 +444,7 @@ async function loadData(){
       litigios:r[IDX.litigios]||'',sumarios:r[IDX.sumarios]||'',
       gef:r[IDX.gef]||'',gaj:r[IDX.gaj]||'',sind:r[IDX.sind]||'',
       ulyt:r[IDX.ulyt]||'',firma:r[IDX.firma]||'',notif:r[IDX.notif]||'',
-      seclo:r[IDX.seclo]||'',concluido:r[IDX.concluido]||'',tutela:r[IDX.tutela]||'',
+      seclo:r[IDX.seclo]||'',concluido:r[IDX.concluido]||'',tutela:r[IDX.tutela]||'',monto:r[IDX.monto]||'',
       etapa:currentStage({gef:r[IDX.gef],gaj:r[IDX.gaj],sind:r[IDX.sind],ulyt:r[IDX.ulyt],firma:r[IDX.firma],notif:r[IDX.notif],seclo:r[IDX.seclo],concluido:r[IDX.concluido]})
     })).filter(r=>r.legajo!=='—');
     populateDep();renderReq();renderDepBars();renderStages();render();
