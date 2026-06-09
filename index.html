@@ -93,7 +93,10 @@ tbody tr:hover td{background:var(--bg)}
 .err{background:#FCEBEB;border:0.5px solid rgba(163,45,45,.2);border-radius:var(--r);padding:14px 18px;color:#791F1F;font-size:13px;margin-bottom:16px;line-height:1.7}
 @keyframes spin{to{transform:rotate(360deg)}}
 
+.monto-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}
 @media(max-width:700px){
+  .monto-grid{grid-template-columns:1fr}
+
   .kpis{display:none}
   .kpi-mobile-row{display:flex}
   .kpis-mobile{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
@@ -131,7 +134,7 @@ tbody tr:hover td{background:var(--bg)}
     <!-- Mobile KPIs -->
     <div class="kpis-mobile" id="kpis-mobile"></div>
 
-    <div class="kpis" id="monto-cards" style="grid-template-columns:repeat(2,1fr);margin-bottom:12px"></div>
+    <div class="monto-grid" id="monto-cards"></div>
 
     <div class="req-section">
       <div class="sec">Requisitos previos</div>
