@@ -146,13 +146,6 @@ tbody tr:hover td{background:var(--bg)}
       <div class="stages" id="stages"></div>
     </div>
 
-
-    <div id="nc-section" style="display:none;margin-bottom:12px">
-      <div class="dep-section">
-        <div class="sec">Nivel Central — desagregado por gerencia</div>
-        <div id="nc-bars"></div>
-      </div>
-    </div>
     <div class="filters">
       <label>Filtrar:</label>
       <select id="fd" onchange="render()"><option value="">Todas las dependencias</option></select>
@@ -184,6 +177,12 @@ tbody tr:hover td{background:var(--bg)}
       <div class="tfoot"><span class="rc" id="rc"></span></div>
     </div>
 
+  <div id="nc-section" style="display:none;margin-top:12px">
+      <div class="dep-section">
+        <div class="sec">Nivel Central — desagregado por gerencia</div>
+        <div id="nc-bars"></div>
+      </div>
+    </div>
   </div>
 </main>
 
@@ -335,12 +334,22 @@ function populateDep(){
   });
 }
 
-function render(){const rows=filtered();renderKPIs(rows);renderTable(rows);renderNivelCentral(rows);}
+function setDepFilter(dep){
+  const sel=g("fd");
+  if(sel.value===dep){sel.value="";}
+  else{sel.value=dep;}
+  render();
+  renderDepBars();
+}
+
+function render(){const rows=filtered();renderKPIs(rows);renderTable(rows);renderNivelCentral(rows);renderDepBars();}
 
 
 function renderNivelCentral(rows){
-  const nc=rows.filter(r=>r.dep.toUpperCase()==="NIVEL CENTRAL");
   const el=g("nc-section");
+  const fd=g("fd").value;
+  if(fd.toUpperCase()!=="NIVEL CENTRAL"){el.style.display="none";return;}
+  const nc=rows;
   if(!nc.length){el.style.display="none";return;}
   el.style.display="block";
   const c={};
