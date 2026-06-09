@@ -146,6 +146,13 @@ tbody tr:hover td{background:var(--bg)}
       <div class="stages" id="stages"></div>
     </div>
 
+
+    <div id="nc-section" style="display:none;margin-bottom:12px">
+      <div class="dep-section">
+        <div class="sec">Nivel Central — desagregado por gerencia</div>
+        <div id="nc-bars"></div>
+      </div>
+    </div>
     <div class="filters">
       <label>Filtrar:</label>
       <select id="fd" onchange="render()"><option value="">Todas las dependencias</option></select>
@@ -328,7 +335,24 @@ function populateDep(){
   });
 }
 
-function render(){const rows=filtered();renderKPIs(rows);renderTable(rows);}
+function render(){const rows=filtered();renderKPIs(rows);renderTable(rows);renderNivelCentral(rows);}
+
+
+function renderNivelCentral(rows){
+  const nc=rows.filter(r=>r.dep.toUpperCase()==="NIVEL CENTRAL");
+  const el=g("nc-section");
+  if(!nc.length){el.style.display="none";return;}
+  el.style.display="block";
+  const c={};
+  nc.forEach(r=>{c[r.gerencia]=(c[r.gerencia]||0)+1;});
+  const sorted=Object.entries(c).sort((a,b)=>b[1]-a[1]);
+  const mx=sorted[0]?.[1]||1;
+  g("nc-bars").innerHTML=sorted.map(([ger,cnt],i)=>`
+    <div class="dep-item">
+      <div class="dep-row"><span class="dep-name" title="${ger}" style="max-width:320px">${ger}</span><span class="dep-n">${cnt}</span></div>
+      <div class="dep-track"><div class="dep-fill" style="width:${Math.round(cnt/mx*100)}%;background:${PALETTE[i%PALETTE.length]}"></div></div>
+    </div>`).join("");
+}
 
 async function loadData(){
   g('loading').style.display='flex';
